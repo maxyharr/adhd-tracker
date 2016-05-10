@@ -17,7 +17,11 @@
   </div>
   <div class="field">
     <%= f.label :category %><br>
-    <%= f.text_field :category %>
+    <%= f.select(:category) do %>
+      <%= content_tag(:option, "Stimulants") %>
+      <%= content_tag(:option, "Non-Stimulants") %>
+      <%= content_tag(:option, "Antidepressants") %>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>
