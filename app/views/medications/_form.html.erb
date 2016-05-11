@@ -11,21 +11,59 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :category %><br>
-    <%= f.select(:category) do %>
-      <%= content_tag(:option, "Stimulants") %>
-      <%= content_tag(:option, "Non-Stimulants") %>
-      <%= content_tag(:option, "Antidepressants") %>
-    <% end %>
-  </div>
+  <div class="box bottom-buffer">
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :category %><br>
+      <%= f.select(:category) do %>
+        <%= content_tag(:option, "Stimulants") %>
+        <%= content_tag(:option, "Non-Stimulants") %>
+        <%= content_tag(:option, "Antidepressants") %>
+      <% end %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
+    <div class="actions">
+      <button class="btn" type="submit">Update Medication</button>
+    </div>
+  </div>
+<% end %>
+
+<%= form_for(@dosage) do |d| %>
+  <div class="box">
+    <div class="field">
+      <h4>Dosages:</h4>
+      <div>
+        <%- if @medication.dosages.count > 0 %>
+          <% @medication.dosages.each do |dosage| %>
+            <%- if dosage.value %>
+              <%= "#{dosage.value}#{dosage.unit}" %>
+              <%= link_to 'Destroy', dosage, method: :delete %><br>
+            <% end %>
+          <% end %>
+        <% else %>
+          No dosages added yet
+        <% end %>
+      </div>
+      <h4>Add a dosage:</h4>
+      <div class="field">
+        <%= d.label :value %><br>
+        <%= d.text_field(:value) %>
+      </div>
+      <div class="field">
+        <%= d.label :unit %><br>
+        <%= d.select(:unit) do %>
+          <%= content_tag(:option, "g (grams)", value: "g") %>
+          <%= content_tag(:option, "mg (milligrams)", value: "mg") %>
+          <%= content_tag(:option, "ml (milliliters)", value: "ml") %>
+        <% end %>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn" type="submit">Add dosage</button>
+    </div>
   </div>
 <% end %>
 

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :medications
+  resources :medications do
+    member do
+      resources :dosages
+    end
+  end
 
   root 'medications#index'
   # The priority is based upon order of creation: first created -> highest priority.
