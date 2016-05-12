@@ -26,47 +26,50 @@
     </div>
 
     <div class="actions">
-      <button class="btn" type="submit">Update Medication</button>
+      <button class="btn" type="submit">
+        Save Medication
+      </button>
     </div>
   </div>
 <% end %>
 
-<%= form_for(@dosage) do |d| %>
-  <div class="box">
-    <div class="field">
-      <h4>Dosages:</h4>
-      <div>
-        <%- if @medication.dosages.count > 0 %>
-          <% @medication.dosages.each do |dosage| %>
-            <%- if dosage.value %>
-              <%= "#{dosage.value}#{dosage.unit}" %>
-              <%= link_to 'Destroy', dosage, method: :delete %><br>
+<%- if @dosage %>
+  <%= form_for(@dosage) do |d| %>
+    <div class="box">
+      <div class="field">
+        <h4>Dosages:</h4>
+        <div>
+          <%- if @medication.dosages.count > 0 %>
+            <% @medication.dosages.each do |dosage| %>
+              <%- if dosage.value %>
+                <%= "#{dosage.value}#{dosage.unit}" %>
+                <%= link_to 'Destroy', dosage, method: :delete %><br>
+              <% end %>
             <% end %>
+          <% else %>
+            No dosages added yet
           <% end %>
-        <% else %>
-          No dosages added yet
-        <% end %>
+        </div>
+        <h4>Add a dosage:</h4>
+        <div class="field">
+          <%= d.label :value %><br>
+          <%= d.text_field(:value) %>
+        </div>
+        <div class="field">
+          <%= d.label :unit %><br>
+          <%= d.select(:unit) do %>
+            <%= content_tag(:option, "g (grams)", value: "g") %>
+            <%= content_tag(:option, "mg (milligrams)", value: "mg") %>
+            <%= content_tag(:option, "ml (milliliters)", value: "ml") %>
+          <% end %>
+        </div>
       </div>
-      <h4>Add a dosage:</h4>
-      <div class="field">
-        <%= d.label :value %><br>
-        <%= d.text_field(:value) %>
-      </div>
-      <div class="field">
-        <%= d.label :unit %><br>
-        <%= d.select(:unit) do %>
-          <%= content_tag(:option, "g (grams)", value: "g") %>
-          <%= content_tag(:option, "mg (milligrams)", value: "mg") %>
-          <%= content_tag(:option, "ml (milliliters)", value: "ml") %>
-        <% end %>
+      <div class="actions">
+        <button class="btn" type="submit">Add dosage</button>
       </div>
     </div>
-    <div class="actions">
-      <button class="btn" type="submit">Add dosage</button>
-    </div>
-  </div>
+  <% end %>
 <% end %>
-
 
 
 <div>
